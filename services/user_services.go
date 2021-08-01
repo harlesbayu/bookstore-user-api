@@ -7,7 +7,21 @@ import (
 	"github.com/harlesbayu/bookstore_users-api/utils/errors"
 )
 
-func CreateUsers(user users.User) (*users.User, *errors.RestErr) {
+var (
+	UserService userServiceInterface = &userService{}
+)
+
+type userServiceInterface interface {
+	CreateUsers(users.User) (*users.User, *errors.RestErr)
+	GetUsers(int64) (*users.User, *errors.RestErr)
+	UpdateUsers(users.User) (*users.User, *errors.RestErr)
+	DeleteUsers(int64) *errors.RestErr
+	FindByStatus(string) (users.Users, *errors.RestErr)
+}
+
+type userService struct{}
+
+func (s *userService) CreateUsers(user users.User) (*users.User, *errors.RestErr) {
 	if err := user.Validate(); err != nil {
 		return nil, err
 	}
@@ -23,7 +37,7 @@ func CreateUsers(user users.User) (*users.User, *errors.RestErr) {
 	return &user, nil
 }
 
-func GetUsers(userId int64) (*users.User, *errors.RestErr) {
+func (s *userService) GetUsers(userId int64) (*users.User, *errors.RestErr) {
 	result := &users.User{Id: userId}
 	if err := result.Get(); err != nil {
 		return nil, err
@@ -31,8 +45,8 @@ func GetUsers(userId int64) (*users.User, *errors.RestErr) {
 	return result, nil
 }
 
-func UpdateUsers(user users.User) (*users.User, *errors.RestErr) {
-	current, err := GetUsers(user.Id)
+func (s *userService) UpdateUsers(user users.User) (*users.User, *errors.RestErr) {
+	current, err := s.GetUsers(user.Id)
 
 	if err != nil {
 		return nil, err
@@ -59,13 +73,13 @@ func UpdateUsers(user users.User) (*users.User, *errors.RestErr) {
 	return current, nil
 }
 
-func DeleteUsers(userId int64) *errors.RestErr {
+func (s *userService) DeleteUsers(userId int64) *errors.RestErr {
 	user := &users.User{Id: userId}
 
 	return user.Delete()
 }
 
-func FindByStatus(status string) (users.Users, *errors.RestErr) {
+func (s *userService) FindByStatus(status string) (users.Users, *errors.RestErr) {
 	dao := users.User{}
 	return dao.FindByStatus(status)
 }

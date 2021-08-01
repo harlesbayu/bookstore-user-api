@@ -17,7 +17,8 @@ func CreateUsers(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, restErr)
 		return
 	}
-	result, saveErr := services.CreateUsers(user)
+
+	result, saveErr := services.UserService.CreateUsers(user)
 
 	if saveErr != nil {
 		c.JSON(saveErr.Status, saveErr)
@@ -36,7 +37,7 @@ func GetUsers(c *gin.Context) {
 		return
 	}
 
-	user, getErr := services.GetUsers(userId)
+	user, getErr := services.UserService.GetUsers(userId)
 
 	if getErr != nil {
 		c.JSON(getErr.Status, getErr)
@@ -55,7 +56,7 @@ func UpdateUsers(c *gin.Context) {
 		return
 	}
 
-	_, getErr := services.GetUsers(userId)
+	_, getErr := services.UserService.GetUsers(userId)
 
 	if getErr != nil {
 		c.JSON(getErr.Status, getErr)
@@ -71,7 +72,7 @@ func UpdateUsers(c *gin.Context) {
 
 	user.Id = userId
 
-	result, updateErr := services.UpdateUsers(user)
+	result, updateErr := services.UserService.UpdateUsers(user)
 
 	if updateErr != nil {
 		c.JSON(updateErr.Status, updateErr)
@@ -90,19 +91,20 @@ func DeleteUsers(c *gin.Context) {
 		return
 	}
 
-	_, getErr := services.GetUsers(userId)
+	_, getErr := services.UserService.GetUsers(userId)
 
 	if getErr != nil {
 		c.JSON(getErr.Status, getErr)
 		return
 	}
 
-	if err := services.DeleteUsers(userId); err != nil {
+	if err := services.UserService.DeleteUsers(userId); err != nil {
 		c.JSON(err.Status, err)
+		return
 	}
 
 	c.JSON(http.StatusOK, map[string]string{"message": "deleted"})
-
+	return
 }
 
 func GetUserId(userIdParams string) (int64, *errors.RestErr) {
@@ -116,7 +118,7 @@ func GetUserId(userIdParams string) (int64, *errors.RestErr) {
 func FindByStatus(c *gin.Context) {
 	status := c.Query("status")
 
-	users, err := services.FindByStatus(status)
+	users, err := services.UserService.FindByStatus(status)
 
 	if err != nil {
 		c.JSON(err.Status, err)
