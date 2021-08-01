@@ -17,6 +17,13 @@ type User struct {
 	Password    string `json:"-"`
 }
 
+const (
+	StatusActive    = "active"
+	StatusNonActive = "non_active"
+)
+
+type Users []User
+
 func (user *User) Validate() *errors.RestErr {
 	user.FirstName = strings.TrimSpace(user.FirstName)
 	user.LastName = strings.TrimSpace(user.LastName)
@@ -30,8 +37,5 @@ func (user *User) Validate() *errors.RestErr {
 		}
 	}
 
-	if user.Password == "" {
-		return errors.NewBadRequestError("Invalid password")
-	}
 	return nil
 }

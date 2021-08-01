@@ -24,7 +24,7 @@ func CreateUsers(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, result)
+	c.JSON(http.StatusCreated, result.Marshall(c.GetHeader("x-public") == "true"))
 	return
 }
 
@@ -43,7 +43,7 @@ func GetUsers(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, user.Marshall(c.GetHeader("x-public") == "true"))
 	return
 }
 
@@ -78,7 +78,7 @@ func UpdateUsers(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, result)
+	c.JSON(http.StatusOK, result.Marshall(c.GetHeader("x-public") == "true"))
 	return
 }
 
@@ -123,6 +123,6 @@ func FindByStatus(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, users.MarshallList(c.GetHeader("x-public") == "true"))
 	return
 }
