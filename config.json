@@ -5,5 +5,6 @@
     "name": "16451510_users_db",
     "host": "localhost",
     "port": 3306
-  }
+  },
+  "sercretKey": "my-secret-password"
 }

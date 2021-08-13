@@ -14,7 +14,7 @@ type User struct {
 	Email       string `json:"email"`
 	DateCreated string `json:"dateCreated"`
 	Status      string `json:"status"`
-	Password    string `json:"-"`
+	Password    string `json:"password"`
 }
 
 const (

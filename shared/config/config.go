@@ -5,7 +5,8 @@ import (
 )
 
 type Config struct {
-	Database MysqlConfig
+	Database  MysqlConfig
+	SecretKey string
 }
 
 type MysqlConfig struct {

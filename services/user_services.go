@@ -17,6 +17,7 @@ type userServiceInterface interface {
 	UpdateUsers(users.User) (*users.User, *errors.RestErr)
 	DeleteUsers(int64) *errors.RestErr
 	FindByStatus(string) (users.Users, *errors.RestErr)
+	LoginUser(users.LoginRrequest) (*users.User, *errors.RestErr)
 }
 
 type userService struct{}
@@ -28,7 +29,7 @@ func (s *userService) CreateUsers(user users.User) (*users.User, *errors.RestErr
 
 	user.DateCreated = date_utils.GetNowDBFormat()
 	user.Status = users.StatusActive
-	user.Password = crypto_utils.GetMd5(user.Password)
+	user.Password = crypto_utils.EncryptPassword(user.Password)
 
 	if err := user.Save(); err != nil {
 		return nil, err
@@ -82,4 +83,23 @@ func (s *userService) DeleteUsers(userId int64) *errors.RestErr {
 func (s *userService) FindByStatus(status string) (users.Users, *errors.RestErr) {
 	dao := users.User{}
 	return dao.FindByStatus(status)
+}
+
+func (s *userService) LoginUser(request users.LoginRrequest) (*users.User, *errors.RestErr) {
+	dao := &users.User{
+		Email: request.Email,
+	}
+
+	if err := dao.FindByEmail(); err != nil {
+		restErr := errors.NewBadRequestError("invalid credential")
+		return nil, restErr
+	}
+
+	password := crypto_utils.DecryptPassword(dao.Password)
+
+	if request.Password != password {
+		restErr := errors.NewBadRequestError("invalid credential")
+		return nil, restErr
+	}
+	return dao, nil
 }

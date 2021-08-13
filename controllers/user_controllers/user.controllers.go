@@ -1,4 +1,4 @@
-package controllers
+package user_controllers
 
 import (
 	"net/http"
@@ -26,7 +26,6 @@ func CreateUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, result.Marshall(c.GetHeader("x-public") == "true"))
-	return
 }
 
 func GetUsers(c *gin.Context) {
@@ -45,7 +44,6 @@ func GetUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, user.Marshall(c.GetHeader("x-public") == "true"))
-	return
 }
 
 func UpdateUsers(c *gin.Context) {
@@ -80,7 +78,6 @@ func UpdateUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, result.Marshall(c.GetHeader("x-public") == "true"))
-	return
 }
 
 func DeleteUsers(c *gin.Context) {
@@ -104,7 +101,6 @@ func DeleteUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]string{"message": "deleted"})
-	return
 }
 
 func GetUserId(userIdParams string) (int64, *errors.RestErr) {
@@ -126,5 +122,23 @@ func FindByStatus(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, users.MarshallList(c.GetHeader("x-public") == "true"))
-	return
+}
+
+func Login(c *gin.Context) {
+	var request users.LoginRrequest
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		restErr := errors.NewBadRequestError("invalid json body")
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+
+	user, err := services.UserService.LoginUser(request)
+
+	if err != nil {
+		c.JSON(err.Status, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, user.Marshall(c.GetHeader("x-public") == "true"))
 }
