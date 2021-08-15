@@ -32,7 +32,7 @@ func (user *User) Marshall(isPublic bool) interface{} {
 	return privateUser
 }
 
-func (users Users) MarshallList(isPublic bool) interface{} {
+func (users Users) Marshall(isPublic bool) interface{} {
 	result := make([]interface{}, len(users))
 	for index, user := range users {
 		result[index] = user.Marshall(isPublic)

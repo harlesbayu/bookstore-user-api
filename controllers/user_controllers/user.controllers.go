@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/harlesbayu/bookstore-oauth-package-go/oauth"
 	"github.com/harlesbayu/bookstore_users-api/domain/users"
 	"github.com/harlesbayu/bookstore_users-api/services"
 	"github.com/harlesbayu/bookstore_users-api/utils/errors"
@@ -29,6 +30,21 @@ func CreateUsers(c *gin.Context) {
 }
 
 func GetUsers(c *gin.Context) {
+	if err := oauth.AuthenticateRequest(c.Request); err != nil {
+		c.JSON(err.Status, err)
+		return
+	}
+
+	if callerId := oauth.GetCallerId(c.Request); callerId == 0 {
+		err := errors.RestErr{
+			Status:  http.StatusUnauthorized,
+			Message: "resource not available",
+		}
+
+		c.JSON(err.Status, err)
+		return
+	}
+
 	userId, idErr := GetUserId(c.Param("user_id"))
 
 	if idErr != nil {
@@ -43,7 +59,12 @@ func GetUsers(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, user.Marshall(c.GetHeader("x-public") == "true"))
+	if oauth.GetCallerId(c.Request) == user.Id {
+		c.JSON(http.StatusOK, user.Marshall(false))
+		return
+	}
+
+	c.JSON(http.StatusOK, user.Marshall(oauth.IsPublic(c.Request)))
 }
 
 func UpdateUsers(c *gin.Context) {
@@ -121,7 +142,7 @@ func FindByStatus(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, users.MarshallList(c.GetHeader("x-public") == "true"))
+	c.JSON(http.StatusOK, users.Marshall(c.GetHeader("x-public") == "true"))
 }
 
 func Login(c *gin.Context) {
