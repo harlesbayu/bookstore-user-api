@@ -17,7 +17,7 @@ const (
 	queryFindByEmail  = "SELECT id, first_name, last_name, email, date_created, password, status FROM users WHERE email=? and status=?;"
 )
 
-func (user *User) Get() *rest_errors.RestErr {
+func (user *User) Get() rest_errors.RestErr {
 	stmt, err := user_db.Client.Prepare(queryGetUser)
 	if err != nil {
 		logger.Error("error when trying to prepare get user statement", err)
@@ -35,7 +35,7 @@ func (user *User) Get() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Save() *rest_errors.RestErr {
+func (user *User) Save() rest_errors.RestErr {
 	stmt, err := user_db.Client.Prepare(queryInsertUser)
 
 	if err != nil {
@@ -63,7 +63,7 @@ func (user *User) Save() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Update() *rest_errors.RestErr {
+func (user *User) Update() rest_errors.RestErr {
 	stmt, err := user_db.Client.Prepare(queryUpdateUser)
 
 	if err != nil {
@@ -81,7 +81,7 @@ func (user *User) Update() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) Delete() *rest_errors.RestErr {
+func (user *User) Delete() rest_errors.RestErr {
 	stmt, err := user_db.Client.Prepare(queryDeleteUser)
 	if err != nil {
 		logger.Error("error when trying to prepare delete user statement", err)
@@ -97,7 +97,7 @@ func (user *User) Delete() *rest_errors.RestErr {
 	return nil
 }
 
-func (user *User) FindByStatus(status string) ([]User, *rest_errors.RestErr) {
+func (user *User) FindByStatus(status string) ([]User, rest_errors.RestErr) {
 	stmt, err := user_db.Client.Prepare(queryFIndByStatus)
 	if err != nil {
 		logger.Error("error when trying to prepare find users by status statement", err)
@@ -131,7 +131,7 @@ func (user *User) FindByStatus(status string) ([]User, *rest_errors.RestErr) {
 	return result, nil
 }
 
-func (user *User) FindByEmail() *rest_errors.RestErr {
+func (user *User) FindByEmail() rest_errors.RestErr {
 	stmt, err := user_db.Client.Prepare(queryFindByEmail)
 	if err != nil {
 		logger.Error("error when trying to prepare get user statement", err)
