@@ -1,6 +1,7 @@
 package user_controllers
 
 import (
+	"github.com/harlesbayu/bookstore-utils-go/rest_errors"
 	"net/http"
 	"strconv"
 
@@ -8,13 +9,12 @@ import (
 	"github.com/harlesbayu/bookstore-oauth-package-go/oauth"
 	"github.com/harlesbayu/bookstore_users-api/domain/users"
 	"github.com/harlesbayu/bookstore_users-api/services"
-	"github.com/harlesbayu/bookstore_users-api/utils/errors"
 )
 
 func CreateUsers(c *gin.Context) {
 	var user users.User
 	if err := c.ShouldBindJSON(&user); err != nil {
-		restErr := errors.NewBadRequestError("Invalid json body")
+		restErr := rest_errors.NewBadRequestError("Invalid json body")
 		c.JSON(http.StatusBadRequest, restErr)
 		return
 	}
@@ -36,7 +36,7 @@ func GetUsers(c *gin.Context) {
 	}
 
 	if callerId := oauth.GetCallerId(c.Request); callerId == 0 {
-		err := errors.RestErr{
+		err := rest_errors.RestErr{
 			Status:  http.StatusUnauthorized,
 			Message: "resource not available",
 		}
@@ -84,7 +84,7 @@ func UpdateUsers(c *gin.Context) {
 
 	var user users.User
 	if err := c.ShouldBindJSON(&user); err != nil {
-		restErr := errors.NewBadRequestError("Invalid json body")
+		restErr := rest_errors.NewBadRequestError("Invalid json body")
 		c.JSON(http.StatusBadRequest, restErr)
 		return
 	}
@@ -124,10 +124,10 @@ func DeleteUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, map[string]string{"message": "deleted"})
 }
 
-func GetUserId(userIdParams string) (int64, *errors.RestErr) {
+func GetUserId(userIdParams string) (int64, *rest_errors.RestErr) {
 	userId, userErr := strconv.ParseInt(userIdParams, 10, 64)
 	if userErr != nil {
-		return 0, errors.NewBadRequestError("user id should be a number")
+		return 0, rest_errors.NewBadRequestError("user id should be a number")
 	}
 	return userId, nil
 }
@@ -149,7 +149,7 @@ func Login(c *gin.Context) {
 	var request users.LoginRrequest
 
 	if err := c.ShouldBindJSON(&request); err != nil {
-		restErr := errors.NewBadRequestError("invalid json body")
+		restErr := rest_errors.NewBadRequestError("invalid json body")
 		c.JSON(restErr.Status, restErr)
 		return
 	}

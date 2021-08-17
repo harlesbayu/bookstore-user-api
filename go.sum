@@ -158,6 +158,10 @@ github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1/go.mod h1:wJfORR
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=
 github.com/harlesbayu/bookstore-oauth-package-go v0.0.0-20210815190122-e1d15861183c h1:T5dbDBX9ngx5Ac62VnWJ1WI77Rr4tpEktsS4JvVhUrI=
 github.com/harlesbayu/bookstore-oauth-package-go v0.0.0-20210815190122-e1d15861183c/go.mod h1:GNTkT5yYJ/xkSbJTqdntac5NaDrvohYEw013ksN36n8=
+github.com/harlesbayu/bookstore-oauth-package-go v0.0.0-20210817074232-6c67c6f1a437 h1:XYxkZJor0wqO/wHk8ElGwlHHcLk8AHpyRiGBpW/3yms=
+github.com/harlesbayu/bookstore-oauth-package-go v0.0.0-20210817074232-6c67c6f1a437/go.mod h1:+I591og1RpcCeRjAzydErsZp46Qn1sUYnYJwYP/L004=
+github.com/harlesbayu/bookstore-utils-go v0.0.0-20210817065823-ca8ead27338f h1:EeCsIq9WkMVXEP2NA2khFp8BsdriTF/PUpsYIneslZA=
+github.com/harlesbayu/bookstore-utils-go v0.0.0-20210817065823-ca8ead27338f/go.mod h1:MreoGJ4FT7tJ0HXWQiCshULmiml15pEYq4B5G+FhBbY=
 github.com/hashicorp/consul/api v1.1.0/go.mod h1:VmuI/Lkw1nC05EYQWNKwWGbkg+FbDBtguAZLlVdkD9Q=
 github.com/hashicorp/consul/sdk v0.1.1/go.mod h1:VKf9jXwCTEY1QZP2MOLRhb5i/I/ssyNV1vwHyQBF0x8=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
@@ -287,6 +291,7 @@ go.uber.org/multierr v1.7.0/go.mod h1:7EAYxJLBy9rStEaz58O2t4Uvip6FSURkq8/ppBp95a
 go.uber.org/zap v1.17.0/go.mod h1:MXVU+bhUf/A7Xi2HNOnopQOrmycQ5Ih87HtOu4q5SSo=
 go.uber.org/zap v1.18.1 h1:CSUJ2mjFszzEWt4CdKISEuChVIXGBn3lAPwkRGyVrc4=
 go.uber.org/zap v1.18.1/go.mod h1:xg/QME4nWcxGxrpdeYfq7UvYrLh66cuVKdrbD1XF/NI=
+go.uber.org/zap v1.19.0/go.mod h1:xg/QME4nWcxGxrpdeYfq7UvYrLh66cuVKdrbD1XF/NI=
 golang.org/x/crypto v0.0.0-20181029021203-45a5f77698d3/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20190510104115-cbcb75029529/go.mod h1:yigFU9vqHzYiE8UmvKecakEJjdnWj3jj499lnFckfCI=

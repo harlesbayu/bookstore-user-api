@@ -1,10 +1,9 @@
 package users
 
 import (
+	"github.com/harlesbayu/bookstore-utils-go/rest_errors"
 	"net/mail"
 	"strings"
-
-	"github.com/harlesbayu/bookstore_users-api/utils/errors"
 )
 
 type User struct {
@@ -24,16 +23,16 @@ const (
 
 type Users []User
 
-func (user *User) Validate() *errors.RestErr {
+func (user *User) Validate() *rest_errors.RestErr {
 	user.FirstName = strings.TrimSpace(user.FirstName)
 	user.LastName = strings.TrimSpace(user.LastName)
 	user.Email = strings.TrimSpace(strings.ToLower(user.Email))
 	if user.Email == "" {
-		return errors.NewBadRequestError("Invalid email address")
+		return rest_errors.NewBadRequestError("Invalid email address")
 	} else {
 		_, err := mail.ParseAddress(user.Email)
 		if err != nil {
-			return errors.NewBadRequestError("Invalid email address")
+			return rest_errors.NewBadRequestError("Invalid email address")
 		}
 	}
 
