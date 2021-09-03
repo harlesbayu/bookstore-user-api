@@ -3,6 +3,9 @@ package user_db
 import (
 	"database/sql"
 	"fmt"
+	"github.com/go-sql-driver/mysql"
+	"github.com/harlesbayu/bookstore-utils-go/logger"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 	config "github.com/harlesbayu/bookstore_users-api/shared/config"
@@ -21,11 +24,17 @@ func MysqlConnection(config *config.Config) {
 		config.Database.Name,
 	)
 
-	fmt.Println("database connection success")
+	var err error
 
-	db, err := sql.Open("mysql", dataSource)
+
+	Client, err := sql.Open("mysql", dataSource)
 	if err != nil {
 		panic(err)
 	}
-	Client = db
+
+	if err = Client.Ping(); err != nil {
+		panic(err)
+	}
+	mysql.SetLogger(logger.GetLogger())
+	log.Printf("database successfully configured")
 }

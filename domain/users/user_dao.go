@@ -3,9 +3,9 @@ package users
 import (
 	"errors"
 	"fmt"
+	"github.com/harlesbayu/bookstore-utils-go/logger"
 	"github.com/harlesbayu/bookstore-utils-go/rest_errors"
 	"github.com/harlesbayu/bookstore_users-api/datasources/mysql/user_db"
-	"github.com/harlesbayu/bookstore_users-api/logger"
 )
 
 const (

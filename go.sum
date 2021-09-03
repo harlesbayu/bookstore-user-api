@@ -160,6 +160,8 @@ github.com/harlesbayu/bookstore-oauth-package-go v0.0.0-20210817170352-67af901c3
 github.com/harlesbayu/bookstore-oauth-package-go v0.0.0-20210817170352-67af901c382f/go.mod h1:uul3xU1qO1JJ6mfMcw+G+eeQxx5y24HQeq5lu4hlPzo=
 github.com/harlesbayu/bookstore-utils-go v0.0.0-20210817124730-4ec40491f762 h1:dCqavIZFWZeaxcLqn1wGa6HdVdgl1lu3jHO8ZYjOp8c=
 github.com/harlesbayu/bookstore-utils-go v0.0.0-20210817124730-4ec40491f762/go.mod h1:MreoGJ4FT7tJ0HXWQiCshULmiml15pEYq4B5G+FhBbY=
+github.com/harlesbayu/bookstore-utils-go v0.0.0-20210829184243-ca7defdfe211 h1:lkOeVh/0J9T4gsEwd2lzZ5u1Vhb3QltR2xyu2uXq4TE=
+github.com/harlesbayu/bookstore-utils-go v0.0.0-20210829184243-ca7defdfe211/go.mod h1:MreoGJ4FT7tJ0HXWQiCshULmiml15pEYq4B5G+FhBbY=
 github.com/hashicorp/consul/api v1.1.0/go.mod h1:VmuI/Lkw1nC05EYQWNKwWGbkg+FbDBtguAZLlVdkD9Q=
 github.com/hashicorp/consul/sdk v0.1.1/go.mod h1:VKf9jXwCTEY1QZP2MOLRhb5i/I/ssyNV1vwHyQBF0x8=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
