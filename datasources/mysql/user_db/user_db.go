@@ -26,15 +26,12 @@ func MysqlConnection(config *config.Config) {
 
 	var err error
 
-
-	Client, err := sql.Open("mysql", dataSource)
+	db, err := sql.Open("mysql", dataSource)
 	if err != nil {
 		panic(err)
 	}
 
-	if err = Client.Ping(); err != nil {
-		panic(err)
-	}
 	mysql.SetLogger(logger.GetLogger())
 	log.Printf("database successfully configured")
+	Client = db
 }
